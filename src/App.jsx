@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
-import Home from './screens/Home';
+import Home from './frontend/screens/Home';
 import { useState } from 'react';
-import Navigation from './components/Navbar';
+import Navigation from './frontend/components/Navbar';
 import './App.css';
-import AddCandidates from './screens/AddCandidates';
-import VotersList from './screens/VotersList';
-import AddVoter from './screens/AddVoter';
+import AddCandidates from './frontend/screens/AddCandidates';
+import VotersList from './frontend/screens/VotersList';
+import AddVoter from './frontend/screens/AddVoter';
 import { ethers } from 'ethers';
 
 export default function App() {
