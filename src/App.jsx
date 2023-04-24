@@ -8,11 +8,14 @@ import AddCandidates from './frontend/screens/AddCandidates';
 import VotersList from './frontend/screens/VotersList';
 import AddVoter from './frontend/screens/AddVoter';
 import { ethers } from 'ethers';
+import VotingSystemAddress from './frontend/contractsData/VotingSystem-address.json'
+import VotingSystemAbi from './frontend/contractsData/VotingSystem.json'
 
 export default function App() {
 
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState(null);
+  const [votingSystem, setVotingSystem] = useState(null);
 
 
   //MetaMask Login/Connect 
@@ -40,11 +43,13 @@ export default function App() {
     }
   }
 
-  const loadContracts = (signer) => {
+  const loadContracts = async (signer) => {
     // Get deployed copies of contracts
-    //const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer)
-    //setNFT(nft)
+    const votingsystem = new ethers.Contract(VotingSystemAddress.address, VotingSystemAbi.abi, signer)
+    setVotingSystem(votingsystem);
     setLoading(false);
+
+    //console.log('app',await votingsystem.getVotersList())
   }
 
   return (
@@ -59,16 +64,16 @@ export default function App() {
         ) : (
           <Routes>
             <Route path="/" element={
-              <Home />
+              <Home votingSystem={votingSystem} />
             } />
             <Route path="/add-candidate" element={
-              <AddCandidates />
+              <AddCandidates votingSystem={votingSystem} />
             } />
             <Route path="/voters-list" element={
-              <VotersList />
+              <VotersList votingSystem={votingSystem}/>
             } />
             <Route path="/add-voter" element={
-              <AddVoter />
+              <AddVoter votingSystem={votingSystem}/>
             } />
           </Routes>
         )}

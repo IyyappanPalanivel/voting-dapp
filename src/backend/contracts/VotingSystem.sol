@@ -3,8 +3,8 @@ pragma solidity ^0.8.9;
 
 contract VotingSystem {
 
-    uint candidateCount;
-    uint voterCount;
+    uint public candidateCount;
+    uint public voterCount;
 
     struct Candidate {
         uint id;
@@ -13,7 +13,7 @@ contract VotingSystem {
         uint voteCount;
     }
 
-    mapping(uint => Candidate) candidateList;
+    mapping(uint => Candidate) public candidateList;
 
     struct Voter {
         uint id;
@@ -100,4 +100,7 @@ contract VotingSystem {
         return allVoters;
     }
 
+    function getCandidateCount() public view returns(uint) {
+        return candidateCount;
+    }
 }   

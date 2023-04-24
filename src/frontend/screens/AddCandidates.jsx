@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Row, Form, Button } from 'react-bootstrap'
 
-function AddCandidates() {
+function AddCandidates({votingSystem}) {
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
 
   
-  const addCandidate= () => {
-
+  const addCandidate= async () => {
+    await (await votingSystem.addCandidate(name, description)).wait()
+    alert('Candidate Added Successfully');
   }
 
   return (
