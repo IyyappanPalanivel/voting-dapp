@@ -23,7 +23,7 @@ contract VotingSystem {
         bool voted;
     }
 
-    mapping(uint => Voter) voterList;
+    mapping(uint => Voter) public voterList;
     // Events allow clients to react to specific
     // contract changes you declare
     event CandidateAdded(uint id, string name, string description,uint voteCount);
@@ -98,9 +98,5 @@ contract VotingSystem {
         }
 
         return allVoters;
-    }
-
-    function getCandidateCount() public view returns(uint) {
-        return candidateCount;
     }
 }   

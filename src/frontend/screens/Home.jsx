@@ -14,17 +14,17 @@ const Home = ({ votingSystem }) => {
   const getCandidates = async () => {
 
     // Load all candidates
-    const candidateCount = await votingSystem.getCandidateCount();
+    const candidateCount = await votingSystem.candidateCount();
     
-    console.log('count',candidateCount);
+    console.log('count',candidateCount.toString());
     let candidates = []
-    // for (let i = 1; i <= candidateCount; i++) {
-    //   const item = await votingSystem.candidateList(i)
-    //   candidates.push({
-    //     name: item.name,
-    //     description: item.description,
-    //   })
-    // }
+    for (let i = 0; i < candidateCount; i++) {
+      const item = await votingSystem.candidateList(i)
+      candidates.push({
+        name: item.name,
+        description: item.description,
+      })
+    }
     setLoading(false)
     setCandidates(candidates)
   }
