@@ -2,13 +2,13 @@ import { ethers } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Row } from 'react-bootstrap'
 
-const Home = ({ votingSystem }) => {
+const Home = ({ votingSystem,account }) => {
 
   const [loading, setLoading] = useState(true)
   const [candidates, setCandidates] = useState([])
 
   useEffect(() => {
-    getCandidates()
+    getCandidates();
   }, [])
 
   const getCandidates = async () => {
@@ -21,12 +21,25 @@ const Home = ({ votingSystem }) => {
     for (let i = 0; i < candidateCount; i++) {
       const item = await votingSystem.candidateList(i)
       candidates.push({
+        id:item.id,
         name: item.name,
         description: item.description,
+        voteCount:item.voteCount,
       })
     }
     setLoading(false)
     setCandidates(candidates)
+  }
+
+  const voteToCandidate = async (item) => {
+    try{
+      console.log('account',account);
+      await (await votingSystem.addVote(item.id, account)).wait();
+      getCandidates();
+    }catch (err){
+      console.log(err.error.data.message);
+      alert(err.error.data.message);
+    } 
   }
 
   if (loading) return (
@@ -49,10 +62,13 @@ const Home = ({ votingSystem }) => {
                     <Card.Text>
                       {item.description}
                     </Card.Text>
+                    <Card.Text>
+                      Total Vote : {item.voteCount.toString()}
+                    </Card.Text>
                   </Card.Body>
                   <Card.Footer>
                     <div className='d-grid'>
-                      <Button variant="primary" size="lg">
+                      <Button variant="primary" size="lg" onClick={ () => voteToCandidate(item)}>
                         Vote To This Candidate
                       </Button>
                     </div>

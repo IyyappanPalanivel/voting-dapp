@@ -64,7 +64,7 @@ export default function App() {
         ) : (
           <Routes>
             <Route path="/" element={
-              <Home votingSystem={votingSystem} />
+              <Home votingSystem={votingSystem} account={account}/>
             } />
             <Route path="/add-candidate" element={
               <AddCandidates votingSystem={votingSystem} />

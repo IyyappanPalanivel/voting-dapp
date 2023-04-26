@@ -22,6 +22,9 @@ function VotersList({votingSystem}) {
       const item = await votingSystem.voterList(i);
       voters.push({
         name: item.name,
+        aadhar_number: item.aadhar_number,
+        voter_id:item.voter_id,
+        voted:item.voted,
       })
     }
     setLoading(false);
@@ -38,7 +41,7 @@ function VotersList({votingSystem}) {
     <div className="flex justify-center">
       {voters.length > 0 ?
         <div className="px-5 container">
-          <Row xs={1} md={2} lg={4} className="g-4 py-5">
+          <Row xs={1} md={2} lg={3} className="g-3 py-5">
             {voters.map((item, idx) => (
               <Col key={idx} className="overflow-hidden">
                 <Card>
@@ -47,6 +50,12 @@ function VotersList({votingSystem}) {
                     <Card.Title>{item.name}</Card.Title>
                     <Card.Text>
                       {item.name}
+                    </Card.Text>
+                    <Card.Text>
+                      Aadhaar number : {item.aadhar_number.toString()}
+                    </Card.Text>
+                    <Card.Text>
+                      Vote Status : {item.voted.toString()=='true' ? "Voted":"Not Voted" }
                     </Card.Text>
                   </Card.Body>
                   <Card.Footer>
