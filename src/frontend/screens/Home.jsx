@@ -34,7 +34,7 @@ const Home = ({ votingSystem,account }) => {
   const voteToCandidate = async (item) => {
     try{
       console.log('account',account);
-      await (await votingSystem.addVote(item.id, account)).wait();
+      await (await votingSystem.addVote(item.id)).wait();
       getCandidates();
     }catch (err){
       console.log(err.error.data.message);

@@ -18,7 +18,6 @@ function VotersList({votingSystem}) {
     console.log('voters count',voterCount.toString());
     let voters = []
     for (let i = 0; i < voterCount; i++) {
-      console.log('voter',i);
       const item = await votingSystem.voterList(i);
       voters.push({
         name: item.name,
@@ -26,7 +25,9 @@ function VotersList({votingSystem}) {
         voter_id:item.voter_id,
         voted:item.voted,
       })
+      console.log('voters',item.voted);
     }
+
     setLoading(false);
     setVoters(voters);
   }
@@ -53,6 +54,9 @@ function VotersList({votingSystem}) {
                     </Card.Text>
                     <Card.Text>
                       Aadhaar number : {item.aadhar_number.toString()}
+                    </Card.Text>
+                    <Card.Text>
+                      Vote ID : {item.voter_id.toString()}
                     </Card.Text>
                     <Card.Text>
                       Vote Status : {item.voted.toString()=='true' ? "Voted":"Not Voted" }

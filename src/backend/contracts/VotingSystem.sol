@@ -24,6 +24,7 @@ contract VotingSystem {
     }
 
     mapping(uint => Voter) public voterList;
+    mapping(address => Voter) public voters;
     // Events allow clients to react to specific
     // contract changes you declare
     event CandidateAdded(uint id, string name, string description,uint voteCount);
@@ -66,8 +67,8 @@ contract VotingSystem {
         emit VoterAdded(voter.id,voter.name,voter.aadhar_number,voter.voter_id,voter.voted);
     }
 
-    function addVote(uint candidate_id,uint voter_id) public {
-        Voter storage voter = voterList[voter_id];
+    function addVote(uint candidate_id) public {
+        Voter storage voter = voters[msg.sender];
         require(!voter.voted,"Voter Already voted");
 
         Candidate storage candidate = candidateList[candidate_id];
